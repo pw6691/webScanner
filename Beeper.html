@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Beeper</title>
+  <title>Parameters</title>
   <style>
     .container {
       width: 500px;
@@ -37,8 +37,8 @@
 </head>
 <body>
   <div class="container">
-    <h2>Beeper</h2>
     <input type="file" id="fileInput" accept=".scndef">
+    <h2>Beeper</h2>
     <div class="parameter-list" id="parameterList"></div>
     <h2>Statistics</h2>
     <div class="parameter-list" id="statisticsParameterList"></div>
@@ -50,11 +50,11 @@
     let initialValues = {};
     let parameterIds = {};
     let parameterCaptions = {};
-    let xmlContent = ''; // Variable to store the XML data
+    let xmlContent = ''; 
 
     document.addEventListener('DOMContentLoaded', function() {
-      // Fetch the file directly
-      fetch('abc.scndef')
+
+      fetch('SP7208-STANDARD SR MODELS-S-003.scndef')
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -128,7 +128,7 @@
                 }
               }
 
-              // Setting first option in dropdown as default value
+              //set first option in dropdown as default value
               if (dropdown.options.length > 0) {
                 dropdown.selectedIndex = 0;
                 initialValues[name] = dropdown.value;
@@ -189,9 +189,9 @@
       const xmlOutput = document.getElementById('xmlOutput');
       xmlOutput.textContent = xmlContent;
 
-      // Log the XML content to the console
       console.log(xmlContent);
     });
+
   </script>
 </body>
 </html>
