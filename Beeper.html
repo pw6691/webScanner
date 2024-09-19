@@ -28,10 +28,10 @@
     }
     .xml-output {
       margin-top: 20px;
-      white-space: pre-wrap; 
+      white-space: pre-wrap;
       padding: 10px;
-      border: 1px;
-      width: 1000px; 
+      border: 1px solid #ccc;
+      width: 1000px;
     }
   </style>
 </head>
@@ -40,6 +40,8 @@
     <h2>Beeper</h2>
     <input type="file" id="fileInput" accept=".scndef">
     <div class="parameter-list" id="parameterList"></div>
+    <h2>Statistics</h2>
+    <div class="parameter-list" id="statisticsParameterList"></div>
     <button id="generateXmlButton">Generate XML</button>
     <div id="xmlOutput" class="xml-output"></div>
   </div>
@@ -48,9 +50,11 @@
     let initialValues = {};
     let parameterIds = {};
     let parameterCaptions = {};
+    let xmlContent = ''; // Variable to store the XML data
 
     document.addEventListener('DOMContentLoaded', function() {
-      fetch('SP7208-STANDARD SR MODELS-S-003.scndef')
+      // Fetch the file directly
+      fetch('abc.scndef')
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -82,15 +86,17 @@
 
     function displayParameterNames(xmlDoc) {
       const groups = xmlDoc.getElementsByTagName('group');
-      const parameterList = document.getElementById('parameterList');
-      parameterList.innerHTML = '';
       initialValues = {};
       parameterIds = {};
       parameterCaptions = {};
 
       for (let i = 0; i < groups.length; i++) {
         const groupName = groups[i].getAttribute('name');
-        if (groupName === 'Beeper') {
+        if (groupName === 'Beeper' || groupName === 'Statistics') {
+          const parameterListId = groupName === 'Beeper' ? 'parameterList' : 'statisticsParameterList';
+          const parameterList = document.getElementById(parameterListId);
+          parameterList.innerHTML = '';
+
           const parameters = groups[i].getElementsByTagName('parameter');
           for (let j = 0; j < parameters.length; j++) {
             const name = parameters[j].getAttribute('name');
@@ -122,7 +128,7 @@
                 }
               }
 
-              //setting first option in dropdown as default value
+              // Setting first option in dropdown as default value
               if (dropdown.options.length > 0) {
                 dropdown.selectedIndex = 0;
                 initialValues[name] = dropdown.value;
@@ -136,14 +142,15 @@
               parameterList.appendChild(parameterItem);
             }
           }
-          break;
         }
       }
     }
 
     document.getElementById('generateXmlButton').addEventListener('click', function() {
       const parameterList = document.getElementById('parameterList');
+      const statisticsParameterList = document.getElementById('statisticsParameterList');
       const items = parameterList.getElementsByClassName('parameter-item');
+      const statisticsItems = statisticsParameterList.getElementsByClassName('parameter-item');
       const result = [];
 
       for (let i = 0; i < items.length; i++) {
@@ -158,10 +165,23 @@
         }
       }
 
-      const xmlContent = `<parameters>\n${result.join('\n')}\n</parameters>`;
+      for (let i = 0; i < statisticsItems.length; i++) {
+        const name = statisticsItems[i].getElementsByClassName('parameter-name')[0].textContent;
+        const dropdown = statisticsItems[i].getElementsByTagName('select')[0];
+        const currentValue = dropdown.value;
+        const textId = parameterCaptions[currentValue];
+
+        if (currentValue !== initialValues[name] && currentValue !== '') {
+          const id = parameterIds[name];
+          result.push(`<parameter name="${name}" id="${id}"><option value="${currentValue}"><caption text-id="${textId}"></caption></option></parameter>`);
+        }
+      }
+
+      xmlContent = `<parameters>\n${result.join('\n')}\n</parameters>`;
       const xmlOutput = document.getElementById('xmlOutput');
       xmlOutput.textContent = xmlContent;
 
+      // Log the XML content to the console
       console.log(xmlContent);
     });
   </script>
