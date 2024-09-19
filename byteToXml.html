@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hex to SCNDEF Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Hex to SCNDEF Converter</h1>
+<form id="hexForm">
+    <input type="file" id="hexFile" accept=".data">
+    <button type="submit">Convert to SCNDEF</button>
+</form>
+
+<script>
+    document.getElementById('hexForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const fileInput = document.getElementById('hexFile');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const hexContent = e.target.result;
+                const byteData = convertHexToBytes(hexContent);
+                downloadFile(byteData, 'output.scndef');
+            };
+            reader.readAsText(file);
+        } else {
+            alert('Please select a hex file.');
+        }
+    });
+
+    function convertHexToBytes(hexString) {
+        // Remove all whitespace and newlines
+        hexString = hexString.replace(/\s+/g, '');
+
+        const byteArray = new Uint8Array(hexString.length / 2);
+        for (let i = 0; i < hexString.length; i += 2) {
+            byteArray[i / 2] = parseInt(hexString.substr(i, 2), 16);
+        }
+
+        return byteArray;
+    }
+
+    function downloadFile(data, filename) {
+        const blob = new Blob([data], { type: 'application/octet-stream' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+</script>
+
+</body>
+</html>

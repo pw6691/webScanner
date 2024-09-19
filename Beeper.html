@@ -1,0 +1,379 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Beeper</title>
+  <style>
+    .container {
+      width: 500px;
+      padding: 20px;
+    }
+    .parameter-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+    }
+    .parameter-name {
+        font-weight: bold;
+        margin-right: 20px;
+        padding-left: 20px; 
+        width: 150px;
+    }
+    .parameter-dropdown select {
+      width: 250px
+    }
+    input[type="file"] {
+            margin-bottom: 20px;
+            display: block; 
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Beeper</h2>
+    <input type="file" id="fileInput" accept=".scndef">
+    <div class="parameter-list" id="parameterList"></div>
+    <button id="generateXmlButton">Generate XML</button>
+        <a id="downloadLink" style="display:none;">Download XML</a>
+  </div>
+
+  <script>
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(e.target.result, "text/xml");
+          displayParameterNames(xmlDoc);
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    function displayParameterNames(xmlDoc) {
+      const groups = xmlDoc.getElementsByTagName('group');
+      const parameterList = document.getElementById('parameterList');
+      parameterList.innerHTML = ''; 
+      
+      for (let i = 0; i < groups.length; i++) {
+        const groupName = groups[i].getAttribute('name');
+        if (groupName === 'Beeper') {
+          const parameters = groups[i].getElementsByTagName('parameter');
+          for (let j = 0; j < parameters.length; j++) {
+            const name = parameters[j].getAttribute('name');
+            if (name) {
+              const parameterItem = document.createElement('div');
+              parameterItem.classList.add('parameter-item');
+
+              const nameContainer = document.createElement('div');
+              nameContainer.classList.add('parameter-name');
+
+              const dropdownContainer = document.createElement('div');
+              dropdownContainer.classList.add('parameter-dropdown');
+
+              const nameLabel = document.createElement('span');
+              nameLabel.textContent = name;
+              nameContainer.appendChild(nameLabel);
+
+              const dropdown = document.createElement('select');
+              const options = parameters[j].getElementsByTagName('option');
+              for (let k = 0; k < options.length; k++) {
+                const option = document.createElement('option');
+                const caption = options[k].getElementsByTagName('caption')[0];
+                if (caption) {
+                  option.text = caption.textContent;
+                  option.value = options[k].getAttribute('value');
+                  dropdown.add(option);
+                }
+              }
+              dropdownContainer.appendChild(dropdown);
+
+              parameterItem.appendChild(nameContainer);
+              parameterItem.appendChild(dropdownContainer);
+              parameterList.appendChild(parameterItem);
+            }
+          }
+          break;
+        }
+      }
+    }
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+<!-- <DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Beeper</title>
+  <style>
+    .container {
+      width: 500px;
+      padding: 20px;
+    }
+    .parameter-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .parameter-name {
+      font-weight: bold;
+      margin-right: 20px;
+      padding-left: 20px; 
+      width: 150px;
+    }
+    .parameter-dropdown select {
+      width: 250px
+    }
+    input[type="file"] {
+      margin-bottom: 20px;
+      display: block; 
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Beeper</h2>
+    <input type="file" id="fileInput" accept=".scndef">
+    <div class="parameter-list" id="parameterList"></div>
+    <button id="printDefaultsButton">Print Defaults</button>
+  </div>
+
+  <script>
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(e.target.result, "text/xml");
+          displayParameterNames(xmlDoc);
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    function displayParameterNames(xmlDoc) {    
+      const groups = xmlDoc.getElementsByTagName('group');
+      const parameterList = document.getElementById('parameterList');
+      parameterList.innerHTML = ''; 
+
+      for (let i = 0; i < groups.length; i++) {
+        const groupName = groups[i].getAttribute('name');
+        if (groupName === 'Beeper') {
+          const parameters = groups[i].getElementsByTagName('parameter');
+          for (let j = 0; j < parameters.length; j++) {
+            const name = parameters[j].getAttribute('name');
+            if (name) {
+              const parameterItem = document.createElement('div');
+              parameterItem.classList.add('parameter-item');
+
+              const nameContainer = document.createElement('div');
+              nameContainer.classList.add('parameter-name');
+
+              const dropdownContainer = document.createElement('div');
+              dropdownContainer.classList.add('parameter-dropdown');
+
+              const nameLabel = document.createElement('span');
+              nameLabel.textContent = name;
+              nameContainer.appendChild(nameLabel);
+
+              const dropdown = document.createElement('select');
+              const options = parameters[j].getElementsByTagName('option');
+              for (let k = 0; k < options.length; k++) {
+                const option = document.createElement('option');
+                const caption = options[k].getElementsByTagName('caption')[0];
+                if (caption) {
+                  option.text = caption.textContent;
+                  option.value = options[k].getAttribute('value');
+                  dropdown.add(option);
+                }
+              }
+              
+              //setting first option as default value
+              if (dropdown.options.length > 0) {
+                dropdown.selectedIndex = 0;
+              }
+
+              dropdownContainer.appendChild(dropdown);
+
+              parameterItem.appendChild(nameContainer);
+              parameterItem.appendChild(dropdownContainer);
+              parameterList.appendChild(parameterItem);
+            }
+          }
+          break;
+        }
+      }
+    }
+
+
+    document.getElementById('printDefaultsButton').addEventListener('click', function() {
+      const parameterList = document.getElementById('parameterList');
+      const items = parameterList.getElementsByClassName('parameter-item');
+      const result = [];
+
+      for (let i = 0; i < items.length; i++) {
+        const name = items[i].getElementsByClassName('parameter-name')[0].textContent;
+        const dropdown = items[i].getElementsByTagName('select')[0];
+        const defaultValue = dropdown.value;
+        result.push(`'${name}'-'${defaultValue}'`);
+      }
+
+      const newWindow = window.open('', '_blank');
+      newWindow.document.write('<html><head><title>Default Values</title></head><body>');
+      newWindow.document.write('<pre>' + result.join('\n') + '</pre>');
+      newWindow.document.write('</body></html>');
+      newWindow.document.close();
+    });
+  </script>
+</body>
+</html>    -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Beeper</title>
+  <style>
+    .container {
+      width: 500px;
+      padding: 20px;
+    }
+    .parameter-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .parameter-name {
+      font-weight: bold;
+      margin-right: 20px;
+      padding-left: 20px; 
+      width: 150px;
+    }
+    .parameter-dropdown select {
+      width: 250px;
+    }
+    input[type="file"] {
+      margin-bottom: 20px;
+      display: block; 
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Beeper</h2>
+    <input type="file" id="fileInput" accept=".scndef">
+    <div class="parameter-list" id="parameterList"></div>
+    <button id="printDefaultsButton">Print Defaults</button>
+  </div>
+
+  <script>
+    let initialValues = {};
+
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(e.target.result, "text/xml");
+          displayParameterNames(xmlDoc);
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    function displayParameterNames(xmlDoc) {    
+      const groups = xmlDoc.getElementsByTagName('group');
+      const parameterList = document.getElementById('parameterList');
+      parameterList.innerHTML = ''; 
+      initialValues = {};
+
+      for (let i = 0; i < groups.length; i++) {
+        const groupName = groups[i].getAttribute('name');
+        if (groupName === 'Beeper') {
+          const parameters = groups[i].getElementsByTagName('parameter');
+          for (let j = 0; j < parameters.length; j++) {
+            const name = parameters[j].getAttribute('name');
+            if (name) {
+              const parameterItem = document.createElement('div');
+              parameterItem.classList.add('parameter-item');
+
+              const nameContainer = document.createElement('div');
+              nameContainer.classList.add('parameter-name');
+
+              const dropdownContainer = document.createElement('div');
+              dropdownContainer.classList.add('parameter-dropdown');
+
+              const nameLabel = document.createElement('span');
+              nameLabel.textContent = name;
+              nameContainer.appendChild(nameLabel);
+
+              const dropdown = document.createElement('select');
+              const options = parameters[j].getElementsByTagName('option');
+              for (let k = 0; k < options.length; k++) {
+                const option = document.createElement('option');
+                const caption = options[k].getElementsByTagName('caption')[0];
+                if (caption) {
+                  option.text = caption.textContent;
+                  option.value = options[k].getAttribute('value');
+                  dropdown.add(option);
+                }
+              }
+              
+              // Setting first option as default value
+              if (dropdown.options.length > 0) {
+                dropdown.selectedIndex = 0;
+                initialValues[name] = dropdown.value;
+              }
+
+              dropdownContainer.appendChild(dropdown);
+
+              parameterItem.appendChild(nameContainer);
+              parameterItem.appendChild(dropdownContainer);
+              parameterList.appendChild(parameterItem);
+            }
+          }
+          break;
+        }
+      }
+    }
+
+    document.getElementById('printDefaultsButton').addEventListener('click', function() {
+      const parameterList = document.getElementById('parameterList');
+      const items = parameterList.getElementsByClassName('parameter-item');
+      const result = [];
+
+      for (let i = 0; i < items.length; i++) {
+        const name = items[i].getElementsByClassName('parameter-name')[0].textContent;
+        const dropdown = items[i].getElementsByTagName('select')[0];
+        const currentValue = dropdown.value;
+        
+        if (currentValue !== initialValues[name]) {
+          result.push(`'${name}'-'${currentValue}'`);
+        }
+      }
+
+      const newWindow = window.open('', '_blank');
+      newWindow.document.write('<html><head><title>Changed Values</title></head><body>');
+      newWindow.document.write('<pre>' + result.join('\n') + '</pre>');
+      newWindow.document.write('</body></html>');
+      newWindow.document.close();
+    });
+  </script>
+</body>
+</html>
