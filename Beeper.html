@@ -28,10 +28,10 @@
     }
     .xml-output {
       margin-top: 20px;
-      white-space: pre-wrap;
+      white-space: pre-wrap; 
       padding: 10px;
       border: 1px solid #ccc;
-      width: 1000px;
+      width: 1000px; 
     }
   </style>
 </head>
@@ -151,7 +151,8 @@
       const statisticsParameterList = document.getElementById('statisticsParameterList');
       const items = parameterList.getElementsByClassName('parameter-item');
       const statisticsItems = statisticsParameterList.getElementsByClassName('parameter-item');
-      const result = [];
+      const beeperParameters = [];
+      const statisticsParameters = [];
 
       for (let i = 0; i < items.length; i++) {
         const name = items[i].getElementsByClassName('parameter-name')[0].textContent;
@@ -161,7 +162,7 @@
 
         if (currentValue !== initialValues[name] && currentValue !== '') {
           const id = parameterIds[name];
-          result.push(`<parameter name="${name}" id="${id}"><option value="${currentValue}"><caption text-id="${textId}"></caption></option></parameter>`);
+          beeperParameters.push(`<parameter name="${name}" id="${id}"><option value="${currentValue}"><caption text-id="${textId}"></caption></option></parameter>`);
         }
       }
 
@@ -173,11 +174,19 @@
 
         if (currentValue !== initialValues[name] && currentValue !== '') {
           const id = parameterIds[name];
-          result.push(`<parameter name="${name}" id="${id}"><option value="${currentValue}"><caption text-id="${textId}"></caption></option></parameter>`);
+          statisticsParameters.push(`<parameter name="${name}" id="${id}"><option value="${currentValue}"><caption text-id="${textId}"></caption></option></parameter>`);
         }
       }
 
-      xmlContent = `<parameters>\n${result.join('\n')}\n</parameters>`;
+      xmlContent = `<parameters>\n`;
+      if (beeperParameters.length > 0) {
+        xmlContent += `<group name="Beeper">\n${beeperParameters.join('\n')}\n</group>\n`;
+      }
+      if (statisticsParameters.length > 0) {
+        xmlContent += `<group name="Statistics">\n${statisticsParameters.join('\n')}\n</group>\n`;
+      }
+      xmlContent += `</parameters>`;
+
       const xmlOutput = document.getElementById('xmlOutput');
       xmlOutput.textContent = xmlContent;
 
