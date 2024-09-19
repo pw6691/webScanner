@@ -16,7 +16,7 @@
     .parameter-name {
       font-weight: bold;
       margin-right: 20px;
-      padding-left: 20px; 
+      padding-left: 20px;
       width: 150px;
     }
     .parameter-dropdown select {
@@ -26,6 +26,13 @@
       margin-bottom: 20px;
       display: block;
     }
+    .xml-output {
+      margin-top: 20px;
+      white-space: pre-wrap; 
+      padding: 10px;
+      border: 1px;
+      width: 1000px; 
+    }
   </style>
 </head>
 <body>
@@ -34,12 +41,32 @@
     <input type="file" id="fileInput" accept=".scndef">
     <div class="parameter-list" id="parameterList"></div>
     <button id="generateXmlButton">Generate XML</button>
+    <div id="xmlOutput" class="xml-output"></div>
   </div>
 
   <script>
     let initialValues = {};
     let parameterIds = {};
-    let optionCaptions = {};
+    let parameterCaptions = {};
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fetch the file directly
+      fetch('abc.scndef')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(data => {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(data, 'text/xml');
+          displayParameterNames(xmlDoc);
+        })
+        .catch(error => {
+          console.error('There has been a problem with your fetch operation:', error);
+        });
+    });
 
     document.getElementById('fileInput').addEventListener('change', function(event) {
       const file = event.target.files[0];
@@ -47,20 +74,20 @@
         const reader = new FileReader();
         reader.onload = function(e) {
           const parser = new DOMParser();
-          const xmlDoc = parser.parseFromString(e.target.result, "text/xml");
+          const xmlDoc = parser.parseFromString(e.target.result, 'text/xml');
           displayParameterNames(xmlDoc);
         };
         reader.readAsText(file);
       }
     });
 
-    function displayParameterNames(xmlDoc) {    
+    function displayParameterNames(xmlDoc) {
       const groups = xmlDoc.getElementsByTagName('group');
       const parameterList = document.getElementById('parameterList');
-      parameterList.innerHTML = ''; 
+      parameterList.innerHTML = '';
       initialValues = {};
       parameterIds = {};
-      optionCaptions = {};
+      parameterCaptions = {};
 
       for (let i = 0; i < groups.length; i++) {
         const groupName = groups[i].getAttribute('name');
@@ -91,18 +118,12 @@
                 if (caption) {
                   option.text = caption.textContent;
                   option.value = options[k].getAttribute('value');
+                  parameterCaptions[options[k].getAttribute('value')] = caption.getAttribute('text-id');
                   dropdown.add(option);
-
-                  // Store the text-id for each option
-                  const textId = caption.getAttribute('text-id');
-                  if (!optionCaptions[name]) {
-                    optionCaptions[name] = {};
-                  }
-                  optionCaptions[name][option.value] = textId;
                 }
               }
 
-              // Setting first option as default value
+              // Setting first option in dropdown as default value
               if (dropdown.options.length > 0) {
                 dropdown.selectedIndex = 0;
                 initialValues[name] = dropdown.value;
@@ -130,26 +151,19 @@
         const name = items[i].getElementsByClassName('parameter-name')[0].textContent;
         const dropdown = items[i].getElementsByTagName('select')[0];
         const currentValue = dropdown.value;
+        const textId = parameterCaptions[currentValue];
 
         if (currentValue !== initialValues[name] && currentValue !== '') {
           const id = parameterIds[name];
-          const textId = optionCaptions[name][currentValue];
-          result.push('<parameter name="' + name + '" id="' + id + '"><option value="' + currentValue + '"><caption text-id="' + textId + '"></caption></option></parameter>');
+          result.push(`<parameter name="${name}" id="${id}"><option value="${currentValue}"><caption text-id="${textId}"></caption></option></parameter>`);
         }
       }
 
-      const xmlContent = '<parameters>\n' + result.join('\n') + '\n</parameters>';
-      const blob = new Blob([xmlContent], { type: 'application/xml' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'changed_parameters.xml';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      }, 0);
+      const xmlContent = `<parameters>\n${result.join('\n')}\n</parameters>`;
+      const xmlOutput = document.getElementById('xmlOutput');
+      xmlOutput.textContent = xmlContent;
+
+      console.log(xmlContent);
     });
   </script>
 </body>
