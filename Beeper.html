@@ -363,7 +363,7 @@
         const dropdown = items[i].getElementsByTagName('select')[0];
         const currentValue = dropdown.value;
         
-        if (currentValue !== initialValues[name]) {
+        if (currentValue !== initialValues[name] && currentValue !== '') {
           result.push(`'${name}'-'${currentValue}'`);
         }
       }
