@@ -28,10 +28,10 @@
     }
     .xml-output {
       margin-top: 20px;
-      white-space: pre-wrap; 
+      white-space: pre-wrap;
       padding: 10px;
       border: 1px solid #ccc;
-      width: 1000px; 
+      width: 1000px;
     }
   </style>
 </head>
@@ -178,14 +178,13 @@
         }
       }
 
-      xmlContent = `<parameters>\n`;
+      xmlContent = '';
       if (beeperParameters.length > 0) {
-        xmlContent += `<group name="Beeper">\n${beeperParameters.join('\n')}\n</group>\n`;
+        xmlContent += `<group name="Beeper">\n<parameters>\n${beeperParameters.join('\n')}\n</parameters>\n</group>\n`;
       }
       if (statisticsParameters.length > 0) {
-        xmlContent += `<group name="Statistics">\n${statisticsParameters.join('\n')}\n</group>\n`;
+        xmlContent += `<group name="Statistics">\n<parameters>\n${statisticsParameters.join('\n')}\n</parameters>\n</group>\n`;
       }
-      xmlContent += `</parameters>`;
 
       const xmlOutput = document.getElementById('xmlOutput');
       xmlOutput.textContent = xmlContent;
