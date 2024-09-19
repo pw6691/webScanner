@@ -50,8 +50,7 @@
     let parameterCaptions = {};
 
     document.addEventListener('DOMContentLoaded', function() {
-      // Fetch the file directly
-      fetch('abc.scndef')
+      fetch('SP7208-STANDARD SR MODELS-S-003.scndef')
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -123,7 +122,7 @@
                 }
               }
 
-              // Setting first option in dropdown as default value
+              //setting first option in dropdown as default value
               if (dropdown.options.length > 0) {
                 dropdown.selectedIndex = 0;
                 initialValues[name] = dropdown.value;
