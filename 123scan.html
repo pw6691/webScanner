@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beeper Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            margin-top: 20px;
+            font-size: 1.5em;
+            padding-left: 20px;
+        }
+        .container {
+            width: auto;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        .parameter-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .parameter-name {
+            font-weight: bold;
+            margin-right: 20px;
+            width: 150px;
+            padding-left: 40px;
+        }
+        .parameter-dropdown select,
+        .parameter-dropdown input[type="text"] {
+            width: 250px;
+            text-align: left;
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+            display: block;
+        }
+        .xml-output {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 1000px;
+        }
+        .file-input-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="file-input-container">
+    <input type="file" id="fileInput">
+</div>
+
+<div class="container"> 
+
+    <h2>System</h2>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="pidType">PID Type</label>
+        <div class="parameter-dropdown">
+            <select id="pidType">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="pidValue">PID Value</label>
+        <div class="parameter-dropdown">
+            <select id="pidValue">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="parameterScanningAllowed">Parameter Scanning Allowed</label>
+        <div class="parameter-dropdown">
+            <select id="parameterScanningAllowed">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="keyboardCountryType">Keyboard Country Type</label>
+        <div class="parameter-dropdown">
+            <select id="keyboardCountryType">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="countryCodePage">Country Code Page</label>
+        <div class="parameter-dropdown">
+            <select id="countryCodePage">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="unicodeOutputControl">Unicode Output Control</label>
+        <div class="parameter-dropdown">
+            <select id="unicodeOutputControl">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="cjkOutputMethod">CJK Output Method to Windows</label>
+        <div class="parameter-dropdown">
+            <select id="cjkOutputMethod">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="transmitCodeId">TransmitCodeId</label>
+        <div class="parameter-dropdown">
+            <select id="transmitCodeId">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="timeoutSameSymbols">Timeout Between Same Symbols</label>
+        <div class="parameter-dropdown">
+            <select id="timeoutSameSymbols">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="timeoutDifferentSymbols">Timeout Between Different Symbols</label>
+        <div class="parameter-dropdown">
+            <select id="timeoutDifferentSymbols">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="scanstandSessionTimeout">Scanstand Session Timeout</label>
+        <div class="parameter-dropdown">
+            <select id="scanstandSessionTimeout">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="mobilePhoneMode">Mobile Phone / Display Mode (Enhanced)</label>
+        <div class="parameter-dropdown">
+            <select id="mobilePhoneMode">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="pdfPrioritization">PDF Prioritization</label>
+        <div class="parameter-dropdown">
+            <select id="pdfPrioritization">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="pdfPrioritizationTimeout">PDF Prioritization Timeout</label>
+        <div class="parameter-dropdown">
+            <select id="pdfPrioritizationTimeout">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="heartbeatInterval">Unsolicited Heartbeat Interval</label>
+        <div class="parameter-dropdown">
+            <select id="heartbeatInterval">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="eclevel">Eclevel</label>
+        <div class="parameter-dropdown">
+            <select id="eclevel">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="colorCameraMode">Color Camera Mode</label>
+        <div class="parameter-dropdown">
+            <select id="colorCameraMode">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="nonDecodeEvent">Non Decode Event</label>
+        <div class="parameter-dropdown">
+            <select id="nonDecodeEvent">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="nonDecodeEventThreshold">Non Decode Event Threshold</label>
+        <div class="parameter-dropdown">
+            <select id="nonDecodeEventThreshold">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="decodeRangeLimit">Decode Range Limit</label>
+        <div class="parameter-dropdown">
+            <select id="decodeRangeLimit">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="extendedTimeoutSameSymbol">Extended Timeout Between Decodes, 2D Same Symbol</label>
+        <div class="parameter-dropdown">
+            <select id="extendedTimeoutSameSymbol">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="lockParameterScanning">Lock Parameter Scanning</label>
+        <div class="parameter-dropdown">
+            <select id="lockParameterScanning">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="rescanBeep">Rescan Beep</label>
+        <div class="parameter-dropdown">
+            <select id="rescanBeep">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="motionDetectMode">Motion Detect Mode</label>
+        <div class="parameter-dropdown">
+            <select id="motionDetectMode">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <br>
+
+    <h2>Statistics</h2>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="codeList">codeList</label>
+        <div class="parameter-dropdown">
+            <select id="codeList">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="threshold">Threshold</label>
+        <div class="parameter-dropdown">
+            <select id="threshold">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <br>
+
+    <h2>Beeper</h2>
+    <div class="parameter-item">
+        <label class="parameter-name" for="beeperVolume">Beeper Volume</label>
+        <div class="parameter-dropdown">
+            <select id="beeperVolume">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="beeperTone">Beeper Tone</label>
+        <div class="parameter-dropdown">
+            <select id="beeperTone">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="scanToneBuffer">ScanToneBuffer</label>
+        <div class="parameter-dropdown">
+            <input type="text" id="scanToneBuffer" value="">
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="scanToneName">Scan Tone Name</label>
+        <div class="parameter-dropdown">
+            <select id="scanToneName">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="beepAfterGoodDecode">Beep After Good Decode</label>
+        <div class="parameter-dropdown">
+            <select id="beepAfterGoodDecode">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="beeperDuration">Beeper Duration</label>
+        <div class="parameter-dropdown">
+            <select id="beeperDuration">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="ledGoodDecode">LED on Good Decode</label>
+        <div class="parameter-dropdown">
+            <select id="ledGoodDecode">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="toneVolumeButton">Tone/Volume Button</label>
+        <div class="parameter-dropdown">
+            <select id="toneVolumeButton">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="suppressBeep">Suppress Power Up Beeps</label>
+        <div class="parameter-dropdown">
+            <select id="suppressBeep">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="audioOutput">Audio Output</label>
+        <div class="parameter-dropdown">
+            <select id="audioOutput">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <br>
+
+    <h2>EAS</h2>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="easOperatingModes">EAS Operating Modes</label>
+        <div class="parameter-dropdown">
+            <select id="easOperatingModes">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="sensormaticRequestComms">Sensormatic Request Communications Message</label>
+        <div class="parameter-dropdown">
+            <select id="sensormaticRequestComms">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="sensormaticEASDeactivation">Sensormatic EAS Deactivation</label>
+        <div class="parameter-dropdown">
+            <select id="sensormaticEASDeactivation">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="sensormaticTagDetectedBeep">Sensormatic EAS Tag Detected Any Time Beep</label>
+        <div class="parameter-dropdown">
+            <select id="sensormaticTagDetectedBeep">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="sensormaticSoftTagBeeps">Sensormatic Soft Tag Beeps</label>
+        <div class="parameter-dropdown">
+            <select id="sensormaticSoftTagBeeps">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="sensormaticHardTagBeeps">Sensormatic Hard Tag Beeps</label>
+        <div class="parameter-dropdown">
+            <select id="sensormaticHardTagBeeps">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="sensormaticDeactivationTimeout">Sensormatic Deactivation Timeout</label>
+        <div class="parameter-dropdown">
+            <select id="sensormaticDeactivationTimeout">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="parameter-item">
+        <label class="parameter-name" for="checkpointInterlockPolarity">Checkpoint Interlock Polarity</label>
+        <div class="parameter-dropdown">
+            <select id="checkpointInterlockPolarity">
+                <option></option>
+            </select>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
