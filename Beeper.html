@@ -33,15 +33,32 @@
       border: 1px solid #ccc;
       width: 1000px;
     }
+    .group-section {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <input type="file" id="fileInput" accept=".scndef">
-    <h2>Beeper</h2>
-    <div class="parameter-list" id="parameterList"></div>
-    <h2>Statistics</h2>
-    <div class="parameter-list" id="statisticsParameterList"></div>
+    <div id="groupsContainer">
+      <div id="beeperGroup" class="group-section">
+        <h2>Beeper</h2>
+        <div class="parameter-list" id="parameterList"></div>
+      </div>
+      <div id="statisticsGroup" class="group-section">
+        <h2>Statistics</h2>
+        <div class="parameter-list" id="statisticsParameterList"></div>
+      </div>
+      <div id="systemGroup" class="group-section">
+        <h2>System</h2>
+        <div class="parameter-list" id="systemParameterList"></div>
+      </div>
+      <div id="easGroup" class="group-section">
+        <h2>EAS</h2>
+        <div class="parameter-list" id="easParameterList"></div>
+      </div>
+    </div>
     <button id="generateXmlButton">Generate XML</button>
     <div id="xmlOutput" class="xml-output"></div>
   </div>
@@ -50,11 +67,10 @@
     let initialValues = {};
     let parameterIds = {};
     let parameterCaptions = {};
-    let xmlContent = ''; 
+    let xmlContent = '';
 
     document.addEventListener('DOMContentLoaded', function() {
-
-      fetch('SP7208-STANDARD SR MODELS-S-003.scndef')
+      fetch('abc.scndef')
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -90,12 +106,23 @@
       parameterIds = {};
       parameterCaptions = {};
 
+      const groupsContainer = document.getElementById('groupsContainer');
+      groupsContainer.style.display = 'none';
+
       for (let i = 0; i < groups.length; i++) {
         const groupName = groups[i].getAttribute('name');
-        if (groupName === 'Beeper' || groupName === 'Statistics') {
-          const parameterListId = groupName === 'Beeper' ? 'parameterList' : 'statisticsParameterList';
+        if (groupName === 'Beeper' || groupName === 'Statistics' || groupName === 'System' || groupName === 'EAS') {
+          const parameterListId = groupName === 'Beeper' ? 'parameterList' :
+                                  groupName === 'Statistics' ? 'statisticsParameterList' :
+                                  groupName === 'System' ? 'systemParameterList' : 'easParameterList';
           const parameterList = document.getElementById(parameterListId);
           parameterList.innerHTML = '';
+
+          const groupSectionId = groupName === 'Beeper' ? 'beeperGroup' :
+                                 groupName === 'Statistics' ? 'statisticsGroup' :
+                                 groupName === 'System' ? 'systemGroup' : 'easGroup';
+          const groupSection = document.getElementById(groupSectionId);
+          groupSection.style.display = 'block';
 
           const parameters = groups[i].getElementsByTagName('parameter');
           for (let j = 0; j < parameters.length; j++) {
@@ -128,7 +155,7 @@
                 }
               }
 
-              //set first option in dropdown as default value
+              // Set first option in dropdown as default value
               if (dropdown.options.length > 0) {
                 dropdown.selectedIndex = 0;
                 initialValues[name] = dropdown.value;
@@ -144,15 +171,25 @@
           }
         }
       }
+
+      groupsContainer.style.display = 'block';
     }
 
     document.getElementById('generateXmlButton').addEventListener('click', function() {
       const parameterList = document.getElementById('parameterList');
       const statisticsParameterList = document.getElementById('statisticsParameterList');
+      const systemParameterList = document.getElementById('systemParameterList');
+      const easParameterList = document.getElementById('easParameterList');
+      
       const items = parameterList.getElementsByClassName('parameter-item');
       const statisticsItems = statisticsParameterList.getElementsByClassName('parameter-item');
+      const systemItems = systemParameterList.getElementsByClassName('parameter-item');
+      const easItems = easParameterList.getElementsByClassName('parameter-item');
+      
       const beeperParameters = [];
       const statisticsParameters = [];
+      const systemParameters = [];
+      const easParameters = [];
 
       for (let i = 0; i < items.length; i++) {
         const name = items[i].getElementsByClassName('parameter-name')[0].textContent;
@@ -178,6 +215,30 @@
         }
       }
 
+      for (let i = 0; i < systemItems.length; i++) {
+        const name = systemItems[i].getElementsByClassName('parameter-name')[0].textContent;
+        const dropdown = systemItems[i].getElementsByTagName('select')[0];
+        const currentValue = dropdown.value;
+        const textId = parameterCaptions[currentValue];
+
+        if (currentValue !== initialValues[name] && currentValue !== '') {
+          const id = parameterIds[name];
+          systemParameters.push(`<parameter name="${name}" id="${id}"><option value="${currentValue}"><caption text-id="${textId}"></caption></option></parameter>`);
+        }
+      }
+
+      for (let i = 0; i < easItems.length; i++) {
+        const name = easItems[i].getElementsByClassName('parameter-name')[0].textContent;
+        const dropdown = easItems[i].getElementsByTagName('select')[0];
+        const currentValue = dropdown.value;
+        const textId = parameterCaptions[currentValue];
+
+        if (currentValue !== initialValues[name] && currentValue !== '') {
+          const id = parameterIds[name];
+          easParameters.push(`<parameter name="${name}" id="${id}"><option value="${currentValue}"><caption text-id="${textId}"></caption></option></parameter>`);
+        }
+      }
+
       xmlContent = '';
       if (beeperParameters.length > 0) {
         xmlContent += `<group name="Beeper">\n<parameters>\n${beeperParameters.join('\n')}\n</parameters>\n</group>\n`;
@@ -185,13 +246,18 @@
       if (statisticsParameters.length > 0) {
         xmlContent += `<group name="Statistics">\n<parameters>\n${statisticsParameters.join('\n')}\n</parameters>\n</group>\n`;
       }
+      if (systemParameters.length > 0) {
+        xmlContent += `<group name="System">\n<parameters>\n${systemParameters.join('\n')}\n</parameters>\n</group>\n`;
+      }
+      if (easParameters.length > 0) {
+        xmlContent += `<group name="EAS">\n<parameters>\n${easParameters.join('\n')}\n</parameters>\n</group>\n`;
+      }
 
       const xmlOutput = document.getElementById('xmlOutput');
       xmlOutput.textContent = xmlContent;
 
       console.log(xmlContent);
     });
-
   </script>
 </body>
 </html>
