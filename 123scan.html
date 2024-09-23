@@ -55,419 +55,100 @@
 <body>
 
 <div class="file-input-container">
-    <input type="file" id="fileInput">
+    <input type="file" id="fileInput" accept=".scndef">
 </div>
 
 <div class="container"> 
-
-    <h2>System</h2>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="pidType">PID Type</label>
-        <div class="parameter-dropdown">
-            <select id="pidType">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="pidValue">PID Value</label>
-        <div class="parameter-dropdown">
-            <select id="pidValue">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="parameterScanningAllowed">Parameter Scanning Allowed</label>
-        <div class="parameter-dropdown">
-            <select id="parameterScanningAllowed">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="keyboardCountryType">Keyboard Country Type</label>
-        <div class="parameter-dropdown">
-            <select id="keyboardCountryType">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="countryCodePage">Country Code Page</label>
-        <div class="parameter-dropdown">
-            <select id="countryCodePage">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="unicodeOutputControl">Unicode Output Control</label>
-        <div class="parameter-dropdown">
-            <select id="unicodeOutputControl">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="cjkOutputMethod">CJK Output Method to Windows</label>
-        <div class="parameter-dropdown">
-            <select id="cjkOutputMethod">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="transmitCodeId">TransmitCodeId</label>
-        <div class="parameter-dropdown">
-            <select id="transmitCodeId">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="timeoutSameSymbols">Timeout Between Same Symbols</label>
-        <div class="parameter-dropdown">
-            <select id="timeoutSameSymbols">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="timeoutDifferentSymbols">Timeout Between Different Symbols</label>
-        <div class="parameter-dropdown">
-            <select id="timeoutDifferentSymbols">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="scanstandSessionTimeout">Scanstand Session Timeout</label>
-        <div class="parameter-dropdown">
-            <select id="scanstandSessionTimeout">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="mobilePhoneMode">Mobile Phone / Display Mode (Enhanced)</label>
-        <div class="parameter-dropdown">
-            <select id="mobilePhoneMode">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="pdfPrioritization">PDF Prioritization</label>
-        <div class="parameter-dropdown">
-            <select id="pdfPrioritization">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="pdfPrioritizationTimeout">PDF Prioritization Timeout</label>
-        <div class="parameter-dropdown">
-            <select id="pdfPrioritizationTimeout">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="heartbeatInterval">Unsolicited Heartbeat Interval</label>
-        <div class="parameter-dropdown">
-            <select id="heartbeatInterval">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="eclevel">Eclevel</label>
-        <div class="parameter-dropdown">
-            <select id="eclevel">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="colorCameraMode">Color Camera Mode</label>
-        <div class="parameter-dropdown">
-            <select id="colorCameraMode">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="nonDecodeEvent">Non Decode Event</label>
-        <div class="parameter-dropdown">
-            <select id="nonDecodeEvent">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="nonDecodeEventThreshold">Non Decode Event Threshold</label>
-        <div class="parameter-dropdown">
-            <select id="nonDecodeEventThreshold">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="decodeRangeLimit">Decode Range Limit</label>
-        <div class="parameter-dropdown">
-            <select id="decodeRangeLimit">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="extendedTimeoutSameSymbol">Extended Timeout Between Decodes, 2D Same Symbol</label>
-        <div class="parameter-dropdown">
-            <select id="extendedTimeoutSameSymbol">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="lockParameterScanning">Lock Parameter Scanning</label>
-        <div class="parameter-dropdown">
-            <select id="lockParameterScanning">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="rescanBeep">Rescan Beep</label>
-        <div class="parameter-dropdown">
-            <select id="rescanBeep">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="motionDetectMode">Motion Detect Mode</label>
-        <div class="parameter-dropdown">
-            <select id="motionDetectMode">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <br>
 
     <h2>Statistics</h2>
 
     <div class="parameter-item">
         <label class="parameter-name" for="codeList">codeList</label>
         <div class="parameter-dropdown">
-            <select id="codeList">
-                <option></option>
-            </select>
+            <select id="codeList"></select>
         </div>
     </div>
 
     <div class="parameter-item">
         <label class="parameter-name" for="threshold">Threshold</label>
         <div class="parameter-dropdown">
-            <select id="threshold">
-                <option></option>
-            </select>
+            <select id="threshold"></select>
         </div>
     </div>
 
-    <br>
+    <button id="generateXmlButton" class="generate-button">Generate XML</button>
 
-    <h2>Beeper</h2>
-    <div class="parameter-item">
-        <label class="parameter-name" for="beeperVolume">Beeper Volume</label>
-        <div class="parameter-dropdown">
-            <select id="beeperVolume">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="beeperTone">Beeper Tone</label>
-        <div class="parameter-dropdown">
-            <select id="beeperTone">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="scanToneBuffer">ScanToneBuffer</label>
-        <div class="parameter-dropdown">
-            <input type="text" id="scanToneBuffer" value="">
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="scanToneName">Scan Tone Name</label>
-        <div class="parameter-dropdown">
-            <select id="scanToneName">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="beepAfterGoodDecode">Beep After Good Decode</label>
-        <div class="parameter-dropdown">
-            <select id="beepAfterGoodDecode">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="beeperDuration">Beeper Duration</label>
-        <div class="parameter-dropdown">
-            <select id="beeperDuration">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="ledGoodDecode">LED on Good Decode</label>
-        <div class="parameter-dropdown">
-            <select id="ledGoodDecode">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="toneVolumeButton">Tone/Volume Button</label>
-        <div class="parameter-dropdown">
-            <select id="toneVolumeButton">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="suppressBeep">Suppress Power Up Beeps</label>
-        <div class="parameter-dropdown">
-            <select id="suppressBeep">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="audioOutput">Audio Output</label>
-        <div class="parameter-dropdown">
-            <select id="audioOutput">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <br>
-
-    <h2>EAS</h2>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="easOperatingModes">EAS Operating Modes</label>
-        <div class="parameter-dropdown">
-            <select id="easOperatingModes">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="sensormaticRequestComms">Sensormatic Request Communications Message</label>
-        <div class="parameter-dropdown">
-            <select id="sensormaticRequestComms">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="sensormaticEASDeactivation">Sensormatic EAS Deactivation</label>
-        <div class="parameter-dropdown">
-            <select id="sensormaticEASDeactivation">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="sensormaticTagDetectedBeep">Sensormatic EAS Tag Detected Any Time Beep</label>
-        <div class="parameter-dropdown">
-            <select id="sensormaticTagDetectedBeep">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="sensormaticSoftTagBeeps">Sensormatic Soft Tag Beeps</label>
-        <div class="parameter-dropdown">
-            <select id="sensormaticSoftTagBeeps">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="sensormaticHardTagBeeps">Sensormatic Hard Tag Beeps</label>
-        <div class="parameter-dropdown">
-            <select id="sensormaticHardTagBeeps">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="sensormaticDeactivationTimeout">Sensormatic Deactivation Timeout</label>
-        <div class="parameter-dropdown">
-            <select id="sensormaticDeactivationTimeout">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="checkpointInterlockPolarity">Checkpoint Interlock Polarity</label>
-        <div class="parameter-dropdown">
-            <select id="checkpointInterlockPolarity">
-                <option></option>
-            </select>
-        </div>
-    </div>
-
+    <div id="xmlOutput" class="xml-output"></div>
 </div>
+
+<script>
+    let initialValues = {};
+
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(e.target.result, "text/xml");
+
+                // Function to populate a select element with options from the XML
+                function populateSelect(parameterName, selectId) {
+                    const parameter = xmlDoc.querySelector(`parameter[name="${parameterName}"]`);
+                    if (parameter) {
+                        const options = parameter.querySelectorAll('options option');
+                        const select = document.getElementById(selectId);
+                        select.innerHTML = ''; // Clear existing options
+                        options.forEach(option => {
+                            const value = option.getAttribute('value');
+                            const caption = option.querySelector('caption').textContent;
+                            const textId = option.querySelector('caption').getAttribute('text-id');
+                            select.innerHTML += `<option value="${value}" data-text-id="${textId}">${caption}</option>`;
+                        });
+                        initialValues[parameterName] = {
+                            value: select.options[0].value,
+                            id: parameter.getAttribute('id')
+                        };
+                    }
+                }
+
+                // Populate the codeList dropdown
+                populateSelect("codeList", "codeList");
+
+                // Populate the threshold dropdown
+                populateSelect("Threshold", "threshold");
+            };
+            reader.readAsText(file);
+        }
+    });
+
+    document.getElementById('generateXmlButton').addEventListener('click', function() {
+        const codeListSelect = document.getElementById('codeList');
+        const thresholdSelect = document.getElementById('threshold');
+
+        const codeListValue = codeListSelect.value;
+        const codeListTextId = codeListSelect.selectedOptions[0].getAttribute('data-text-id');
+        const codeListId = initialValues["codeList"].id;
+        const thresholdValue = thresholdSelect.value;
+        const thresholdTextId = thresholdSelect.selectedOptions[0].getAttribute('data-text-id');
+        const thresholdId = initialValues["Threshold"].id;
+
+        let xmlContent = '';
+
+        if (codeListValue !== initialValues["codeList"].value) {
+            xmlContent += `<group name="Statistics">\n  <parameter name="codeList" id="${codeListId}"> <option value="${codeListValue}"> <caption text-id="${codeListTextId}"/> </option> </parameter>\n</group>\n`;
+        }
+
+        if (thresholdValue !== initialValues["Threshold"].value) {
+            xmlContent += `<group name="Statistics">\n  <parameter name="threshold" id="${thresholdId}"> <option value="${thresholdValue}"> <caption text-id="${thresholdTextId}"/> </option> </parameter>\n</group>\n`;
+        }
+
+        const xmlOutput = document.getElementById('xmlOutput');
+        xmlOutput.textContent = xmlContent;
+
+        console.log(xmlContent);
+    });
+</script>
 
 </body>
 </html>
