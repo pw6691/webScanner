@@ -17,6 +17,7 @@
             width: auto;
             padding: 20px;
             margin: 0 auto;
+            display: none; /* Hide the container initially */
         }
         .parameter-item {
             display: flex;
@@ -117,6 +118,9 @@
 
                 // Populate the threshold dropdown
                 populateSelect("Threshold", "threshold");
+
+                // Show the container after the file is loaded and parsed
+                document.querySelector('.container').style.display = 'block';
             };
             reader.readAsText(file);
         }
