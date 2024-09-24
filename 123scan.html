@@ -3,156 +3,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beeper Settings</title>
+    <title>Scanner Settings</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-        }
-        h2 {
-            margin-top: 20px;
-            font-size: 1.5em;
-            padding-left: 20px;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
         .container {
-            width: auto;
+            /* max-width: 1200px; */
+            margin: 20px auto;
+            background: #fff;
             padding: 20px;
-            margin: 0 auto;
-            display: none; /* Hide the container initially */
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: auto; /* Ensure the container grows with the content */
         }
-        .parameter-item {
+        /* Section at the top for the General header */
+        .header-section {
+            padding-bottom: 1px;
+        }
+        h1 {
+            font-size: 18px;
+            color: #333;
+        }
+        p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Left-side navigation and form layout */
+        .content-section {
             display: flex;
-            align-items: center;
-            margin-bottom: 20px;
         }
-        .parameter-name {
-            font-weight: bold;
+        .nav-section {
+            flex-basis: 20%;
+            border-right: 1px solid #ddd;
+            padding-right: 15px;
             margin-right: 20px;
-            width: 150px;
-            padding-left: 40px;
         }
-        .parameter-dropdown select,
-        .parameter-dropdown input[type="text"] {
-            width: 250px;
-            text-align: left;
+        .nav-section h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
         }
-        input[type="file"] {
+        .nav-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .nav-section ul li {
+            margin-bottom: 10px;
+        }
+        .nav-section ul li a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 14px;
+            max-width: 100px; /* Sets the width to fit the text */
+            padding: 25px; /* Adjust padding to control hover area */
+        }
+        .nav-section ul li a:hover {
+            color: orange;        
+        }
+        .form-section {
+            flex-grow: 1; /* Allow the form section to grow */
+        }
+        
+        .form-group {
             margin-bottom: 20px;
-            display: block;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
         }
-        .xml-output {
-            margin-top: 20px;
-            white-space: pre-wrap;
-            padding: 10px;
-            border: 1px solid #ccc;
-            width: 1000px;
+        .form-group label {
+            flex-basis: 16%;
+            font-size: 14px;
+            color: #333;
+            text-align: left;
+            margin-right: 10px;
         }
-        .file-input-container {
-            position: absolute;
-            top: 10px;
-            left: 10px;
+        .form-group select {
+            flex-grow: 0; /* Do not allow the select box to grow */
+            width: auto; /* Allow the width to adjust automatically */
+            padding: 2px; /* Optional: Reduce padding */
+            font-size: 13px;
+            max-width: 200px; /* Ensure a maximum width */
+            height: auto; /* Allow the height to adjust automatically */
+        }
+        .form-group input[type="number"], 
+        .form-group input[type="checkbox"] {
+            flex: 0 0 auto; 
+            padding: 4px;
+            font-size: 13px;
+            margin-left: 0;
+        }
+        .form-group input[type="checkbox"] {
+            margin-top: 0;
         }
     </style>
 </head>
 <body>
 
-<div class="file-input-container">
-    <input type="file" id="fileInput" accept=".scndef">
-</div>
-
-<div class="container"> 
-
-    <h2>Statistics</h2>
-
-    <div class="parameter-item">
-        <label class="parameter-name" for="codeList">codeList</label>
-        <div class="parameter-dropdown">
-            <select id="codeList"></select>
-        </div>
+<div class="container">
+    <!-- Top section with General information -->
+    <div class="header-section">
+        <h1>General</h1>
+        <p>The parameters below are general scanner settings and user preferences. <br>Click on blue links below for faster parameter list navigation.</p>
     </div>
 
-    <div class="parameter-item">
-        <label class="parameter-name" for="threshold">Threshold</label>
-        <div class="parameter-dropdown">
-            <select id="threshold"></select>
+    <!-- Content section with navigation and form -->
+    <div class="content-section">
+        <!-- Left navigation section -->
+        <div class="nav-section">
+            <ul>
+                <li><a href="#system">System</a></li>
+                <li><a href="#beeper">Beeper</a></li>
+                <li><a href="#eas">EAS</a></li>
+                <li><a href="#statistics">Statistics</a></li>
+            </ul>
+        </div>
+
+        <!-- Main form section -->
+        <div class="form-section">
+            <h3 id="System">System</h3>
+            <div class="form-group">
+                <label for="pid-type">PID Type</label>
+                <select id="1281" name="pid-type">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="pid-value">PID Value</label>
+                <input type="number" id="1725" name="pid-value" value="0">
+            </div>
+            
+            <div class="form-group">
+                <label for="flash-update">4690 Flash Update</label>
+                <select id="1727" name="flash-update">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="param-scanning">Parameter Scanning Allowed</label>
+                <input type="checkbox" id="236" name="param-scanning" checked>
+            </div>
+            
+            <div class="form-group">
+                <label for="keyboard-country">Keyboard Country Type</label>
+                <select id="960" name="keyboard-country">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="country-code-page">Country Code Page</label>
+                <select id="961" name="country-code-page">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="unicode-output">Unicode Output Control</label>
+                <select id="973" name="unicode-output">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="cjk-output">CJK Output Method to Windows</label>
+                <select id="972" name="cjk-output">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="transmit-code-id">Transmit Code ID Character</label>
+                <select id="45" name="transmit-code-id">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="timeout-between-same-symbols">Timeout Between Same Symbols</label>
+                    <input type="number" id="137" value="0">
+                    <option></option>
+                </select>
+            </div>
+            
+            <!-- <div class="form-group"></div>
+                <label for="pid-value">PID Value</label>
+                <input type="number" id="1725" name="pid-value" value="0">
+            </div> -->
+
+            <div class="form-group">
+                <label for="timeout-between-different-symbols">Timeout Between Different Symbols</label>
+                <input type="number" id="144" value="0">
+                <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="scanstand-session-timeout">Scanstand Session Timeout</label>
+                <input type="number" id="400" value="0">
+                <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="mobile-phone-display-mode-enhanced">Mobile Phone / Display Mode (Enhanced)</label>
+                <select id="716" name="mobile-phone-display-mode-enhanced">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="pdf-prioritization">PDF Prioritization</label>
+                <select id="719" name="pdf-prioritization">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="pdf-prioritization-timeout">PDF Prioritization Timeout</label>
+                <input type="number" id="720" value="0">
+                <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="unsolicited-heartbeat-interval">Unsolicited Heartbeat Interval</label>
+                <input type="number" id="1118" value="0">
+                <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="eclevel">Eclevel</label>
+                <input type="number" id="1710" value="0">
+                <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="color-camera-mode">Color Camera Mode</label>
+                <select id="2385" name="color-camera-mode">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="non-decode-event">Non Decode Event</label>
+                <select id="2075" name="non-decode-event">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="non-decode-event-threshold">Non Decode Event Threshold</label>
+                <input type="number" id="2076" value="0">
+                <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="decode-range-limit">Decode Range Limit</label>
+                <select id="1950" name="decode-range-limit">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="extended-timeout-between-decodes-2d-same-symbol">Extended Timeout Between Decodes, 2D Same Symbol</label>
+                <input type="number" id="2367" value="0">
+                <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="lock-parameter-scanning">Lock Parameter Scanning</label>
+                <input type="number" id="802" value="0">
+                <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="unlock-parameter-scanning">Unlock Parameter Scanning</label>
+                <input type="number" id="803" value="0">
+                <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="rescan-beep">Rescan Beep</label>
+                <input type="number" id="2382" value="0">
+                <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="motion-detect-mode">Motion Detect Mode</label>
+                <select id="2377" name="motion-detect-mode">
+                    <option></option>
+                </select>
+            </div>
+            
+            <br>
+            <h3 id="beeper">Beeper</h3>
+            
+            <div class="form-group">
+                <label for="beeper-volume">Beeper Volume</label>
+                <select id="140" name="beeper-volume">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="beep-tone">Beep Tone</label>
+                <select id="145" name="beep-tone">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="set-custom-scan-tone">Set Custom Scan Tone</label>
+                <select id="5016" name="set-custom-scan-tone">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="beep-after-good-decode">Beep After Good Decode</label>
+                <select id="56" name="beep-after-good-decode">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="beeper-duration">Beeper Duration</label>
+                <select id="628" name="beeper-duration">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="led-on-good-decode">LED on Good Decode</label>
+                <select id="744" name="led-on-good-decode">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="tone-volume-button">Tone/Volume Button</label>
+                <select id="1287" name="tone-volume-button">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="suppress-power-up-beeps">Suppress Power Up Beeps</label>
+                <select id="721" name="suppress-power-up-beeps">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="audio-output">Audio Output</label>
+                <select id="2359" name="audio-output">
+                    <option></option>
+                </select>
+            </div>
+            
+            <br>
+            <h3 id="statistics">Statistics</h3>
+            
+            <div class="form-group">
+                <label for="save-image-of-slowest-decodes">Save Image of Slowest Decodes</label>
+                <select id="1755" name="save-image-of-slowest-decodes">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="only-save-image-slower-than">Only Save Image Slower than</label>
+                <select id="1756" name="only-save-image-slower-than">
+                    <option></option>
+                </select>
+            </div>
+            
+            <br>
+            <h3 id="eas">EAS</h3>
+            
+            <div class="form-group">
+                <label for="eas-operating-modes">EAS Operating Modes</label>
+                <select id="977" name="eas-operating-modes">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="sensormatic-request-communications-message">Sensormatic Request Communications Message</label>
+                <select id="978" name="sensormatic-request-communications-message">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="sensormatic-eas-deactivation">Sensormatic EAS Deactivation</label>
+                <select id="979" name="sensormatic-eas-deactivation">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="sensormatic-eas-tag-detected-any-time-beep">Sensormatic EAS Tag Detected Any Time Beep</label>
+                <select id="980" name="sensormatic-eas-tag-detected-any-time-beep">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="sensormatic-soft-tag-beeps">Sensormatic Soft Tag Beeps</label>
+                <select id="984" name="sensormatic-soft-tag-beeps">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="sensormatic-hard-tag-beeps">Sensormatic Hard Tag Beeps</label>
+                <select id="985" name="sensormatic-hard-tag-beeps">
+                    <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="sensormatic-deactivation-timeout">Sensormatic Deactivation Timeout</label>
+                <input type="number" id="982" value="0">
+                <option></option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="checkpoint-interlock-polarity">Checkpoint Interlock Polarity</label>
+                <select id="983" name="checkpoint-interlock-polarity">
+                    <option></option>
+                </select>
+            </div>            
+            
         </div>
     </div>
-
-    <button id="generateXmlButton" class="generate-button">Generate XML</button>
-
-    <div id="xmlOutput" class="xml-output"></div>
 </div>
-
-<script>
-    let initialValues = {};
-
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(e.target.result, "text/xml");
-
-                // Function to populate a select element with options from the XML
-                function populateSelect(parameterName, selectId) {
-                    const parameter = xmlDoc.querySelector(`parameter[name="${parameterName}"]`);
-                    if (parameter) {
-                        const options = parameter.querySelectorAll('options option');
-                        const select = document.getElementById(selectId);
-                        select.innerHTML = ''; // Clear existing options
-                        options.forEach(option => {
-                            const value = option.getAttribute('value');
-                            const caption = option.querySelector('caption').textContent;
-                            const textId = option.querySelector('caption').getAttribute('text-id');
-                            select.innerHTML += `<option value="${value}" data-text-id="${textId}">${caption}</option>`;
-                        });
-                        initialValues[parameterName] = {
-                            value: select.options[0].value,
-                            id: parameter.getAttribute('id')
-                        };
-                    }
-                }
-
-                // Populate the codeList dropdown
-                populateSelect("codeList", "codeList");
-
-                // Populate the threshold dropdown
-                populateSelect("Threshold", "threshold");
-
-                // Show the container after the file is loaded and parsed
-                document.querySelector('.container').style.display = 'block';
-            };
-            reader.readAsText(file);
-        }
-    });
-
-    document.getElementById('generateXmlButton').addEventListener('click', function() {
-        const codeListSelect = document.getElementById('codeList');
-        const thresholdSelect = document.getElementById('threshold');
-
-        const codeListValue = codeListSelect.value;
-        const codeListTextId = codeListSelect.selectedOptions[0].getAttribute('data-text-id');
-        const codeListId = initialValues["codeList"].id;
-        const thresholdValue = thresholdSelect.value;
-        const thresholdTextId = thresholdSelect.selectedOptions[0].getAttribute('data-text-id');
-        const thresholdId = initialValues["Threshold"].id;
-
-        let xmlContent = '';
-
-        if (codeListValue !== initialValues["codeList"].value) {
-            xmlContent += `<group name="Statistics">\n  <parameter name="codeList" id="${codeListId}"> <option value="${codeListValue}"> <caption text-id="${codeListTextId}"/> </option> </parameter>\n</group>\n`;
-        }
-
-        if (thresholdValue !== initialValues["Threshold"].value) {
-            xmlContent += `<group name="Statistics">\n  <parameter name="threshold" id="${thresholdId}"> <option value="${thresholdValue}"> <caption text-id="${thresholdTextId}"/> </option> </parameter>\n</group>\n`;
-        }
-
-        const xmlOutput = document.getElementById('xmlOutput');
-        xmlOutput.textContent = xmlContent;
-
-        console.log(xmlContent);
-    });
-</script>
 
 </body>
 </html>
